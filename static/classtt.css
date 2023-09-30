@@ -1,0 +1,219 @@
+* {
+    box-sizing: border-box
+}
+
+
+body {
+    background-image: url('bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.body {
+    background-image: url('bg.png');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+table {
+    width: 90%;
+    margin: auto;
+    border: 2px solid black;
+    background-color: rgba(255, 255, 255, 0.496);
+    border-color: black;
+    padding: 5px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+table th {
+    width: 150px;
+    height: 70px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    border: 1px solid rgba(115, 115, 115, 0.344);
+}
+
+table td {
+    height: 40px;
+    font-size: 18px;
+    /* border: 1px solid rgba(92, 92, 92, 0.618); */
+    /* border: none; */
+    border: 1px solid black;
+}
+
+table td.lec{
+    border-top: 1px solid rgba(92, 92, 92, 0.618);
+    border-left: 1px solid rgba(92, 92, 92, 0.618);
+    border-right: 1px solid rgba(92, 92, 92, 0.618);
+}
+
+table td.teacher{
+    border-bottom: 1px solid rgba(92, 92, 92, 0.618);
+    border-left: 1px solid rgba(92, 92, 92, 0.618);
+    border-right: 1px solid rgba(92, 92, 92, 0.618);
+}
+
+table td.time{
+    border:1px solid rgba(92, 92, 92, 0.618) ;
+}
+
+.new{
+    width: 20px;
+    display: inline-flex;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid black;
+    color: black;
+    /* padding: 2px 5px; */
+}
+
+.new:hover{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.break{
+    height: 100%;
+    background-color: rgba(68, 68, 68, 0.429);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table .slot{
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid white;
+    background-color: rgb(138, 139, 192);
+    border-radius: 10px;
+}
+
+table .lec{
+    padding: 2px;
+    font-size: 20px;
+}
+
+table .lec a{
+    text-decoration: none;
+}
+
+table .teacher{
+    padding: 2px;
+    font-size: 16px;
+}
+
+table .lec .lecture{
+    display: inline;
+    margin: 5px 20px;
+}
+
+table th#time {
+    width: 150px;
+}
+
+.tabs {
+    margin:auto;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 50px;
+    color: white;
+    text-align: center;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    width: 80%;
+    position: relative;
+    margin: 10px auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+    padding: 10px;
+}
+
+.first {
+    display: block;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 3px 3px 3px 3px;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 3px 3px 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+    color: white;
+    font-size: 30px;
+    padding: 8px 12px;
+    width: 100%;
+    text-align: center;
+}
+
+/* The dots/bullets/indicators */
+button.tab {
+    cursor: pointer;
+    padding-top: 5px;
+    height: 30px;
+    width: 100px;
+    margin: 0 2px;
+    border: none;
+    background-color: #939090;
+    border-radius: 10px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.active,
+.tab:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 0.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}

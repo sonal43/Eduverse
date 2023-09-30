@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUP</title>
+
+    <style>
+        body{
+            background-image: url(/static/bg.png);
+            background-size: cover;
+        }
+
+        .login{
+            background-color: rgba(0, 0, 0, 0.878);
+            border-radius: 10px;
+            width: 550px;
+            margin: 70px auto;
+            text-align: center;
+        }
+
+        #logo{
+            width:300px;
+            padding-top: 30px;
+            margin:auto;
+            display: block;
+        }
+
+        h2{
+            color: white;
+            font-size: 30px;
+        }
+
+        .box{
+            padding: 10px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        input.input{
+            padding: 5px;
+            width: 300px;
+            height: 30px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        input#submit{
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 100px;
+            height: 40px;
+            border-radius: 10px;
+            font-size: 20px;
+            padding: 5px;
+        }
+
+        input#submit:hover{
+            cursor: pointer;
+            background-color:  #6465A2;
+            border-color: white;
+            color: white;
+        }        
+
+        #loglink{
+            margin-top: 10px;
+            color: white;
+            font-size: 20px;
+        }
+
+        #loglink a{
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        #loglink a:hover{
+            color: #b4cecf;
+        }
+
+
+        
+        
+    </style>
+
+</head>
+
+<body>
+    <div class="login">
+        <div id="logo">
+            <!-- <img src="C:/Users/Sonal/Desktop/eduverse/templates/images/eduverse_logo.png" width="300"> -->
+            <img src="{{url_for('static',filename='eduverse_logo.png')}}" width="300">
+        </div>
+        <hr width="70%">
+        <div id="login">
+            <h2>SIGN-UP</h2>
+        </div>
+        <form action="/signup1" method="post">
+            <div class="box">
+                Name
+                <input type="text" placeholder="Enter Name" class="input" name="name">
+            </div>
+            <div class="box">
+                Staff ID 
+                <input type="text" placeholder="Enter Staff ID" class="input" name="id">
+            </div>
+            <div class="box">
+                Email ID 
+                <input type="email" placeholder="Enter Email ID" class="input" name="email">
+            </div>
+            <div class="box">
+                Set Password 
+                <input type="password" placeholder="Enter password" class="input" name="password">
+            </div>
+            <div class="box">
+                Confirm Password
+                <input type="password" placeholder="Confirm password" class="input" name="confirm">
+            </div>
+            <div id="loglink">
+                Already have an account? <a href="{{url_for('login')}}">LOGIN</a>
+            </div>
+            <div>
+                <input type="submit" value="Sign Up" id="submit">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

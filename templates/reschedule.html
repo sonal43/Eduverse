@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reschedule Lecture</title>
+    <style>
+        body {
+            background-image: url(/static/bg.png);
+            /* background-image: url(/images/bg.png); */
+            background-size: cover;
+        }
+
+        .navbar {
+            background-color: black;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        #logo {
+            width: 250px;
+            padding: 20px 10px;
+            margin-right: 50px;
+        }
+
+        .navbar ul li {
+            display: inline;
+            padding: 20px 20px;
+        }
+
+        .navbar ul {
+            display: inline;
+            margin-right: 50px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+        }
+
+        .navbar ul li:hover {
+            background-color: rgba(255, 255, 255, 0.186);
+            border-radius: 20px;
+        }
+
+        .dropmenu {
+            display: none;
+        }
+
+        .navbar ul li:hover .dropmenu {
+            display: block;
+            position: absolute;
+            width: 200px;
+            background-color: rgb(44, 74, 64);
+            border-radius: 10px;
+            margin-top: 12px;
+            margin-left: 269px;
+        }
+
+        .dropmenu {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .dropmenu ul li {
+            padding: 10px 30px;
+        }
+
+        .dropmenu ul li a {
+            font-size: 20px;
+        }
+
+        .navbar ul li:hover .dropmenu ul {
+            display: block;
+        }
+
+        .navbar ul li:hover .dropmenu ul li {
+            display: block;
+        }
+
+        a.active {
+            font-weight: bold;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.826);
+            width: 500px;
+            margin: 100px auto;
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .box {
+            width: 400px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 20px;
+            color: white;
+        }
+
+        select {
+            width: 250px;
+            height: 30px;
+            border-radius: 8px;
+            padding: 5px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        select:hover {
+            cursor: pointer;
+        }
+
+        select option {
+            font-size: 15px;
+        }
+
+        select option:checked {
+            background-color:#6465A2;
+        }
+
+        input#submit {
+            margin: 20px 160px;
+            padding: 5px;
+            font-size: 15px;
+            width: 125px;
+            height: 35px;
+            border-radius: 10px;
+        }
+
+        input#submit:hover {
+            cursor: pointer;
+            color: white;
+            background-color: #6465A2;
+            border-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{{url_for('static',filename='eduverse_logo.png')}}" id="logo">
+            <!-- <img src="C:/Users/Sonal/Desktop/eduverse/templates/images/eduverse_logo.png"> -->
+            <ul>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="#" class="active">Reschedule</a></li>
+                <li>
+                    <a href="{{url_for('classtt')}}">View Timetable</a>
+                </li>
+                <li><a href="">My profile</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <form action="proxysearch" method="post">
+                <div class="box">
+                    CLASS
+                    <select name="class">
+                        <option selected disabled>--- SELECT CLASS ---</option>
+                        <option value="SEA">SE-A</option>
+                        <option value="SEB">SE-B</option>
+                        <option value="TEA">TE-A</option>
+                        <option value="TEB">TE-B</option>
+                        <option value="BEA">BE-A</option>
+                        <option value="BEB">BE-B</option>
+                    </select>
+                </div>
+
+                <div class="box">
+                    DAY
+                    <select name="day">
+                        <option selected disabled>--- SELECT DAY ---</option>
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                    </select>
+                </div>
+
+                <div class="box">
+                    TIME-SLOT
+                    <select name="timeslot">
+                        <option selected disabled>--- SELECT TIME-SLOT ---</option>
+                        <option value="9to10">9 am to 10 am</option>
+                        <option value="10to11">10 am to 11 am</option>
+                        <option value="11_15to12_15">11:15 am to 12:15 pm</option>
+                        <option value="12_15to1_15">12:15 pm to 1:15 pm</option>
+                        <option value="2to3">2 pm to 3 pm</option>
+                        <option value="3to4">3 pm to 4 pm</option>
+                        <option value="4to5">4 pm to 5 pm</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" value="Proxy Search" id="submit">
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Schedule</title>
+    <style>
+        body {
+            background-image: url(/static/bg.png);
+        }
+        
+        .navbar {
+            background-color: black;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        #logo {
+            width: 250px;
+            padding: 20px 10px;
+            margin-right: 50px;
+        }
+
+        .navbar ul li {
+            display: inline;
+            padding: 20px 20px;
+        }
+
+        .navbar ul {
+            display: inline;
+            margin-right: 50px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+        }
+
+        .navbar ul li:hover {
+            background-color: rgba(255, 255, 255, 0.186);
+            border-radius: 20px;
+        }
+
+        .dropmenu {
+            display: none;
+        }
+
+        .navbar ul li:hover .dropmenu {
+            display: block;
+            position: absolute;
+            width: 200px;
+            background-color: rgb(44, 74, 64);
+            border-radius: 10px;
+            margin-top: 12px;
+            margin-left: 269px;
+        }
+
+        .dropmenu {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .dropmenu ul li {
+            padding: 10px 30px;
+        }
+
+        .dropmenu ul li a {
+            font-size: 20px;
+        }
+
+        .navbar ul li:hover .dropmenu ul {
+            display: block;
+        }
+
+        .navbar ul li:hover .dropmenu ul li {
+            display: block;
+        }
+
+        a.active {
+            font-weight: bold;
+        }
+
+        .body {
+            background-image: url(/static/bg.png);
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        h2 {
+            font-size: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .day {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        table {
+			border-collapse: collapse;
+			table-layout: fixed;
+            margin: 0 auto;
+            border: 2px solid black;
+            background-color: rgba(255, 255, 255, 0.496);
+            border-color: black;
+            padding: 5px;
+            font-size: 20px;
+		}
+		th {
+			padding: 8px;
+			border: 1px solid black;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+            background-color: black;
+            color: white;
+            border: 1px solid rgba(115, 115, 115, 0.344);
+		}
+        td {
+            padding: 8px;
+			border: 1px solid black;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+        }
+		td.notes {
+			position: relative;
+			height: 80px;
+		}
+		td.notes .text {
+			margin-bottom: 8px;
+		}
+		td.notes input[type="text"] {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: none;
+			background-color: transparent;
+		}
+		td.notes input[type="text"]:focus {
+			outline: none;
+			background-color: #f5f5f5;
+		}
+		td.notes .edit-icon {
+			position: absolute;
+			right: 8px;
+			bottom: 8px;
+			cursor: pointer;
+		}
+        td.notes .delete-icon {
+			position: absolute;
+			right: 40px;
+			bottom: 8px;
+			cursor: pointer;
+		}
+        td:first-child{
+            text-align: center;
+        }
+        td:nth-child(2){
+            text-align: center;
+        }
+        td:nth-child(3){
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{{url_for('static',filename='eduverse_logo.png')}}" id="logo">
+            <!-- <img src="C:/Users/Sonal/Desktop/eduverse/templates/images/eduverse_logo.png"> -->
+            <ul>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('reschedule')}}">Reschedule</a></li>
+                <li>
+                    <a href="{{url_for('classtt')}}">View Timetable</a>
+                </li>
+                <li><a href="">My profile</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="body">
+            <h2>My Schedule</h2>
+                <div class="day">Day: {{day}}</div>
+                <br>
+                <form method="post" action="notesup">
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th width="100px">Timeslot</th>
+                                <th width="100px">Class</th>
+                                <th width="100px">Subject</th>
+                                <th width="400px" >Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for slot in ['9to10', '10to11', '11_15to12_15', '12_15to1_15', '2to3', '3to4', '4to5'] %}
+                            <tr>
+                                <td>{{slot}}</td>
+                                <td>
+                                    {% for item in data %}
+                                        {% if item[0] == slot and item[1] is not none and item[1]!='' %}
+                                            {{ item[1] }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for item in data %}
+                                        {% if item[0] == slot and item[2] is not none and item[2]!='' %}
+                                            {{ item[2] }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td class="notes">
+                                    <div class="text">
+                                        {% for item in notes %}
+                                        {% if item[0] == slot and item[1] is not none and item[1]!='' %}
+                                            {{ item[1] }}
+                                        {% endif %}
+                                    {% endfor %}
+                                    </div>
+                                    <i class="fas fa-edit edit-icon"></i>
+                                    <i class="fas fa-trash delete-icon"></i>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+        </div>
+        <script>
+            const editIcons = document.querySelectorAll('.edit-icon');
+            editIcons.forEach((icon) => {
+                icon.addEventListener('click', () => {
+                    const td = icon.parentNode;
+                    const text = td.querySelector('.text');
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = text.textContent.trim();
+                    text.style.display = 'none';
+                    td.appendChild(input);
+                    input.focus();
+                    let keypress = true;
+                    input.addEventListener('blur', () => {
+                        const row = td.parentNode;
+                        const prev1 = row.cells[td.cellIndex - 3]
+                        const prev2 = row.cells[td.cellIndex - 2]
+                        const prev3 = row.cells[td.cellIndex - 1]
+                        const note = row.cells[td.cellIndex].textContent.trim();
+                        const prev = prev1.textContent.trim()+"|"+prev2.textContent.trim()+"|"+prev3.textContent.trim()+"|addup"+"|"+note.textContent.trim();
+                        if(keypress){
+                            if(prev){
+                            console.log(prev)
+                            keypress = false;
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST","/notes?place="+prev);
+                            xhr.send();
+                        }
+                        }
+                    });
+                    input.addEventListener('keydown',(event) => {
+                        if (event.key === 'Enter') {
+                        text.textContent = input.value;
+                        text.style.display = 'block';
+                        input.remove();
+                        const row = td.parentNode;
+                        const prev1 = row.cells[td.cellIndex - 3]
+                        const prev2 = row.cells[td.cellIndex - 2]
+                        const prev3 = row.cells[td.cellIndex - 1]
+                        const note = row.cells[td.cellIndex]
+                        const prev = prev1.textContent.trim()+"|"+prev2.textContent.trim()+"|"+prev3.textContent.trim()+"|addup"+"|"+note.textContent.trim();
+                        if(keypress){
+                            if(prev){
+                            console.log(prev)
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST","/notes?place="+prev);
+                            xhr.send();
+                        }
+                        }
+                        }
+                    });
+                });
+            });
+
+            const deleteIcons = document.querySelectorAll('.delete-icon');
+            deleteIcons.forEach((icon) => {
+                icon.addEventListener('click', () => {
+                    const td = icon.parentNode;
+                    const text = td.querySelector('.text');
+                    text.textContent = '';
+                    const row = td.parentNode;
+                    const prev1 = row.cells[td.cellIndex - 3]
+                    const prev2 = row.cells[td.cellIndex - 2]
+                    const prev3 = row.cells[td.cellIndex - 1]
+                    const prev = prev1.textContent.trim()+"|"+prev2.textContent.trim()+"|"+prev3.textContent.trim()+"|delete"+"|delnote";
+                    if(prev){
+                    console.log(prev)
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST","/notes?place="+prev);
+                    xhr.send();
+                }
+                })
+            })
+        </script>
+    </main>
+</body>
+</html>

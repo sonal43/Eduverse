@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        body {
+            background-image: url(/static/bg.png);
+        }
+        
+        .navbar {
+            background-color: black;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        #logo {
+            width: 250px;
+            padding: 20px 10px;
+            margin-right: 50px;
+        }
+
+        .navbar ul li {
+            display: inline;
+            padding: 20px 20px;
+        }
+
+        .navbar ul {
+            display: inline;
+            margin-right: 50px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+        }
+
+        .navbar ul li:hover {
+            background-color: rgba(255, 255, 255, 0.186);
+            border-radius: 20px;
+        }
+
+        .dropmenu {
+            display: none;
+        }
+
+        .navbar ul li:hover .dropmenu {
+            display: block;
+            position: absolute;
+            width: 200px;
+            background-color: rgb(44, 74, 64);
+            border-radius: 10px;
+            margin-top: 12px;
+            margin-left: 269px;
+        }
+
+        .dropmenu {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .dropmenu ul li {
+            padding: 10px 30px;
+        }
+
+        .dropmenu ul li a {
+            font-size: 20px;
+        }
+
+        .navbar ul li:hover .dropmenu ul {
+            display: block;
+        }
+
+        .navbar ul li:hover .dropmenu ul li {
+            display: block;
+        }
+
+        a.actives {
+            font-weight: bold;
+        }
+
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Timetable</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='classtt.css')}}">
+    <script src="{{url_for('static',filename='classtt.js')}}"></script>
+
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <img src="{{url_for('static',filename='eduverse_logo.png')}}" id="logo">
+            <!-- <img src="C:/Users/Sonal/Desktop/eduverse/templates/images/eduverse_logo.png"> -->
+            <ul>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('reschedule')}}">Reschedule</a></li>
+                <li>
+                    <a href="#" class="actives" >View Timetable</a>
+                </li>
+                <li><a href="">My profile</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="body">
+            <!-- Tabs -->
+            <form action="classtt1" method="post">
+                <div class="tabs" style="text-align:center">
+                    <button type="submit" class="tab" onclick="currentSlide(1)" name="tableid" value="sea" id="sea">SE-A
+                    <button type="submit" class="tab" onclick="currentSlide(2)" name="tableid" value="seb" id="seb">SE-B
+                    <button type="submit" class="tab" onclick="currentSlide(3)" name="tableid" value="tea" id="tea">TE-A
+                    <button type="submit" class="tab" onclick="currentSlide(4)" name="tableid" value="teb" id="teb">TE-B
+                    <button type="submit" class="tab" onclick="currentSlide(5)" name="tableid" value="bea" id="bea">BE-A
+                    <button type="submit" class="tab" onclick="currentSlide(6)" name="tableid" value="beb" id="beb">BE-B
+                </div>
+            </form>
+
+
+            <div class="slideshow-container">
+
+                <div class="mySlides fade first">
+                    <div class="text">{{id}}</div>
+                    <table id="tttable">                   
+                        <tr>
+                            <th id="time">Time-Slot</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                        
+                        {% for slot in ['9to10', '10to11', '11_15to12_15', '12_15to1_15', '2to3', '3to4', '4to5'] %}
+                        <tr>
+                            <td>{{ slot }}</td>
+                            {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] %}
+                                <td>
+                                    <div class="slot">
+                                        <div class="lec">
+                                            {% for item in data %}
+                                            {% if item[0] == slot and item[1] == day and item[3] is not none and item[3]!='' %}
+                                                {{ item[3] }}
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="teacher">
+                                            {% for item in data %}
+                                            {% if item[0] == slot and item[1] == day and item[2] is not none and item[2]!='' %}
+                                            {{ item[2] }}
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                        
+
+                        <!-- <tr>
+                        <td>9 to 10</td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>10 to 11</td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>11 to 11.15</td>
+                        <td colspan="5"><div class="break">Break</div></td>
+                    </tr>
+                    <tr>
+                        <td>11.15 to 12.15</td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>12.15 to 1.15</td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1.15 to 2</td>
+                        <td colspan="5"><div class="break">Break</div></td>
+                    </tr>
+                    <tr>
+                        <td>2 to 3</td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3 to 4</td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4 to 5</td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slot">
+                                <div class="lec">Maths</div>
+                                <div class="teacher">SKM</div>
+                            </div>
+                        </td>
+                    </tr> -->
+
+                        <!-- {% for row in data %}
+
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>
+                                <div class="slot">{{ row[1] }}</div>
+                            </td>
+                            <td>
+                                <div class="slot">{{ row[2] }}</div>
+                            </td>
+                            <td>
+                                <div class="slot">{{ row[3] }}</div>
+                            </td>
+                            <td>
+                                <div class="slot">{{ row[4] }}</div>
+                            </td>
+                            <td>
+                                <div class="slot">{{ row[5] }}</div>
+                            </td>
+                        </tr>
+
+                        {% endfor %} -->
+
+
+                    </table>
+                </div>
+
+                
+            </div>
+            <br>
+
+        </div>
+    </main>
+</body>
+
+</html>

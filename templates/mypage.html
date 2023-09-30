@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='classtt.css')}}">
+    <script src="{{url_for('static',filename='classtt.js')}}"></script>
+
+    <style>
+        .popup {
+            width: 400px;
+            border: 2px solid white;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            background-color: rgb(0, 0, 0);
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s;
+        }
+
+        a#backbtn {
+            text-decoration: none;
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 10px 5px;
+            border: 1px solid black;
+        }
+
+        .open {
+            visibility: visible;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 10000;
+        }
+
+        .box {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 20px;
+            color: white;
+        }
+
+        .in{
+            width: 100%;
+            justify-content: right;
+        }
+
+        button.add {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            font-size: 15px;
+            text-align: center;
+            padding: 0;
+        }
+
+        button.add:hover {
+            cursor: pointer;
+            color: white;
+        }
+
+        .lastblock{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .closebtn{
+            text-align: right;
+        }
+
+        button.cbtn{
+            background-color: transparent;
+            color: white;
+            border: none;
+        }
+
+        button.cbtn:hover{
+            cursor: pointer;
+            background-color: red;
+        }
+
+        input.submit {
+            margin: 20px auto;
+            padding: 5px;
+            font-size: 15px;
+            width: 25%;
+            height: 35px;
+            border-radius: 10px;
+        }
+
+        input.submit:hover {
+            cursor: pointer;
+            color: white;
+            background-color: #6465A2;
+            border-color: white;
+        }
+
+        input.textt {
+            width: 60%;
+            height: 30px;
+            border-radius: 10px;
+        }
+
+        select.selectteacher{
+            width: 60%;
+            border-radius: 5px;
+            height: 30px;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .slot{
+            display: flex;
+        }
+
+        .left{
+            width: 80%;
+            padding: 10px;
+        }
+
+        .right{
+            width: 20%;
+            padding: 2px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <a id="backbtn" href="{{url_for('adminhome')}}">HOME</a>
+        <div class="popup" id="popup">
+            <div class="closebtn">
+                <button type="button" class="cbtn" onclick="closepopup()">X</button>
+            </div>
+            <form action="addupdate" method="post" class="popupupdate">
+                <div class="box">
+                    SUBJECT
+                    <input type="text" placeholder="Enter Subject name" name="subject" class="textt">
+                </div>
+                <div class="box">
+                    AVAILABLE TEACHERS
+                    <select class="selectteacher" name="teacher">
+                        <option selected disabled>--- SELECT TEACHER ---</option>
+                        {% for teacher in list %}
+                            <option>{{ teacher }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="box in">
+                    <input type="text" name="teacher" class="textt">
+                </div>
+                <div class="lastblock">
+                    <input type="submit" value="Update" class="submit" id="add">
+                </div>
+            </form>
+        </div>
+
+        <!-- Tabs -->
+        <form action="addtt2" method="post">
+            <div class="tabs" style="text-align:center">
+                <button type="submit" class="tab" onclick="currentSlide(1)" name="tableid" value="sea" id="sea">SE-A
+                <button type="submit" class="tab" onclick="currentSlide(2)" name="tableid" value="seb" id="seb">SE-B
+                <button type="submit" class="tab" onclick="currentSlide(3)" name="tableid" value="tea" id="tea">TE-A
+                <button type="submit" class="tab" onclick="currentSlide(4)" name="tableid" value="teb" id="teb">TE-B
+                <button type="submit" class="tab" onclick="currentSlide(5)" name="tableid" value="bea" id="bea">BE-A
+                <button type="submit" class="tab" onclick="currentSlide(6)" name="tableid" value="beb" id="beb">BE-B
+            </div>
+        </form>
+
+        <div class="slideshow-container">
+
+            <div class="mySlides fade first">
+                <div class="text">{{hid}}</div>
+                <form action="addupdate" method="post">
+                <table>
+                    <tr>
+                        <th id="time">Time-Slot</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                    {% for slot in ['9to10', '10to11', '11_15to12_15', '12_15to1_15', '2to3', '3to4', '4to5'] %}
+                    <tr>
+                        <td>{{ slot }}</td>
+                        {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] %}
+                        <!-- <td>
+                            <div class="slot">
+                                <div class="lecture">
+                                    {% for item in data %}
+                                    {% if item[0] == slot and item[1] == day and item[3] is not none and item[3]!='' %}
+                                    {{ item[3] }}
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="lecture">
+                                    {% for item in data %}
+                                    {% if item[0] == slot and item[1] == day and item[2] is not none and item[2]!='' %}
+                                    {{ item[2] }}
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                                <div class="new">
+                                    <button type="button" class="add" id="{{day}} {{slot}}" hid="{{hid}}" onclick="openpopup(this,this.id)">+</button>
+                                </div>
+
+                            </div>
+                        </td> -->
+                        <td>
+                            <div class="slot">
+                                <!-- Left class displays teacher and lecture -->
+                                <div class="left">
+                                    <div class="lec">
+                                        {% for item in data %}
+                                        {% if item[0] == slot and item[1] == day and item[3] is not none and item[3]!='' %}
+                                            {{ item[3] }}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="teacher">
+                                        {% for item in data %}
+                                        {% if item[0] == slot and item[1] == day and item[2] is not none and item[2]!='' %}
+                                        {{ item[2] }}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!-- Right class contains a div with + button -->
+                                <div class="right">
+                                    <div class="new">
+                                        <button type="button" class="add" id="{{day}} {{slot}}" onclick="openpopup(this,this.id)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                </form>
+            </div>
+        </div>
+        <br>
+
+    </div>
+
+    <script>
+        let popup = document.getElementById("popup");
+        function openpopup(button,id) {
+            popup.classList.add("open");
+            console.log("Button clicked in cell ("+id+")");    
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST","/addupdate2?id="+id);
+            xhr.send();
+        }
+
+        function closepopup() {
+            popup.classList.remove("open");
+        }
+    </script>
+
+
+
+</body>
+
+</html>

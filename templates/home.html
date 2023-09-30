@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <style>
+        body {
+            background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),url(/static/bg.png);
+        }
+
+        .body {
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)),url(/static/bg.png);
+            background-size: cover;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .navbar{
+            width: 100%;
+            height: min-content;
+            /* background-color: rgb(125, 89, 89); */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navlist ul{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .navlist ul li{
+            list-style: none;
+            margin-right: 50px;
+        }
+
+        .navlist ul li a{
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            background-color: rgba(255, 255, 255, 0.373);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .navlist ul li a:hover{
+            background-color: rgba(255, 255, 255, 0.6);
+            color:  #3d6751;
+        }
+
+        .drop{
+            display: none;
+        }
+
+        .navlist ul li:hover .drop{
+            width: 220px;
+            display: block;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.677);
+            border: 2px solid white;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-left: -100px;
+        }
+
+        .drop ul{
+            display: block;
+        }
+
+        .drop li{
+            margin: 10px auto;
+            width: 150px;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .drop ul li a{
+            background-color: transparent;
+        }
+
+        .drop ul li a:hover{
+            background-color: transparent;
+        }
+
+        img#logo{
+            width: 25%;
+            padding: 10px;
+        }
+
+        .welcome{
+            width: 50%;
+            font-size: 40px;
+            margin: 80px auto;
+            text-align: center;
+            color: white;
+        }
+
+        .drop hr{
+            width: 80%;
+            margin: 5px auto;
+        }
+
+        .main{
+            width: 70%;
+            margin: 100px auto;
+            /* background-color: antiquewhite; */
+            display: flex;
+            justify-content: space-between;
+        }
+
+        a.boxtag{
+            height: 250px;
+            /* background-color: blue; */
+            background-image: linear-gradient(to right bottom, rgb(138, 139, 192),rgb(62, 63, 125));
+            width: 30%;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border: 2px solid white;
+            border-radius: 10px;
+            display: flex;
+            font-size: 25px;
+        }
+
+        a.boxtag:hover{
+            background-image: linear-gradient(to right bottom, rgb(86, 87, 105),rgb(25, 25, 62));
+            box-shadow: 0px 0px 5px 5px rgba(255, 255, 255, 0.166);
+        }
+
+        img.image{
+            width: 100%;
+            margin: 10px auto;
+        }
+
+        .imgs{
+            display: block;
+            width: 50%;
+            margin: auto;
+        }
+        button.bell{
+            background-color: transparent;
+            border: none;
+        }
+
+        button.bell:hover{
+            cursor: pointer;
+            border: white;
+            box-shadow: 2px 2px 5px white;
+        }
+
+        .popup {
+            width: 600px;
+            box-shadow: 2px 2px 10px white;
+            border: 2px solid white;
+            border-radius: 10px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            background-color: rgb(0, 0, 0);
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s;
+        }
+
+        .open {
+            visibility: visible;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 10000;
+        }
+
+        .box {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 20px;
+            color: white;
+        }
+
+        button.add {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            font-size: 15px;
+            text-align: center;
+            padding: 0;
+        }
+
+        button.add:hover {
+            cursor: pointer;
+            color: white;
+        }
+
+        .lastblock {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .closebtn {
+            text-align: right;
+        }
+
+        button.cbtn {
+            background-color: transparent;
+            color: white;
+            border: none;
+        }
+
+        button.cbtn:hover {
+            cursor: pointer;
+            background-color: red;
+        }
+
+        .buttons{
+            width: 350px;
+            display: flex;
+            margin: auto;
+            justify-content: space-around;
+        }
+
+        button.adbtn{
+            background-color: antiquewhite;
+            width: 100px;
+            height: 30px;
+            border-radius: 10px;
+            /* padding: 10px; */
+            margin: 10px;
+        }
+
+        h2{
+            color: white;
+        }
+
+        button.adbtn:hover{
+            cursor: pointer;
+            box-shadow: 2px 2px 6px white;
+        }
+
+        button#accept{
+            background-color: green;
+        }
+
+        button#decline{
+            background-color: red;
+        }
+
+
+
+    </style>
+
+</head>
+
+<body>
+    <div class="body">
+        <div class="popup" id="popup">
+            <div class="closebtn">
+                <button type="button" class="cbtn" onclick="closepopup()">X</button>
+            </div>
+            <h2>{{msg}}</h2>
+            <form action="acceptdecline" method="post">
+                <div class="buttons">
+                    <button type="submit" name="acceptdecline" value="accept" class="adbtn" id="accept" >ACCEPT</button>
+                    <button type="submit" name="acceptdecline" value="decline" class="adbtn" id="decline" >DECLINE</button>
+                </div>
+            </form>     
+        </div>
+        <div class="navbar">
+            <img src="/static/eduverse_logo.png" id="logo">
+            <div class="navlist">
+                <ul>
+                    {% if visible %}
+                    <li><button type="button" class="bell"  onclick="openpopup()"><img src="/static/bell.png" width="50"></button></li>
+                    {% endif %}
+                    <li><a href="#">PROFILE</a>
+                        <div class="drop">
+                            <ul>
+                                <li><a href="#">Edit profile</a></li>
+                                <hr>
+                                <li><a href="#">Settings</a></li>
+                                <hr>
+                                <li><a href="{{url_for('logout')}}">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="welcome">           
+                Welcome {{teacher}}      
+        </div>
+
+        <div class="main">
+            <a href="{{url_for('mytt')}}" class="boxtag">
+                <div class="imgs">
+                    <img src="/static/viewtt.png" class="image">
+                    My Schedule
+                </div>
+            </a>
+            <a href="{{url_for('classtt')}}" class="boxtag">
+                <div class="imgs">
+                    <img src="/static/classtt.png" class="image">
+                    Class Timetable
+                </div>
+            </a>
+            <a href="{{url_for('reschedule')}}" class="boxtag">
+                <div class="imgs">
+                    <img src="/static/resched.png" class="image">
+                    Reschedule
+                </div>
+            </a>
+        </div>
+    </div>
+    <script>
+        let popup = document.getElementById("popup");
+        function openpopup() {
+            popup.classList.add("open");
+        }
+        function closepopup() {
+            popup.classList.remove("open");
+        }
+    </script>
+</body>
+
+</html>
